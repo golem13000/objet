@@ -81,6 +81,14 @@ function setMort(int $mort) {
 
 }
 
+ function attaquer(personnage $perso) {
+        $perso->setVie($perso->getVie() - $this->force);
+        $perso->setMort();
+
+
+}
+
+
 
 
 }
@@ -89,10 +97,10 @@ $perso1 = new Personnage("Rose",12);
 $perso2 = new personnage("Golbu",15, 1);
 $perso3 = new personnage("Arthis",13,1);
 
-//echo $perso1->getNom();
+$perso2->caracteristiques();
+$perso1->attaquer($perso2);
+$perso2->caracteristiques();
 
-$perso2->setNom("ralf");
-echo $perso2->getNom();
 
 
 $perso1->setNom("Rose");
@@ -111,7 +119,6 @@ $perso3->setForce(13);
 $perso3->setLevel(1);
 $perso3->setVie(0);
 
-//$perso1->caracteristiques();
 
 
 
@@ -119,4 +126,4 @@ $perso3->setVie(0);
 
 
 
-?>
+
