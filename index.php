@@ -7,12 +7,16 @@ private $force;
 private $level;
 private $mort;
 private $vie;
+private $type;
 
 
 function __construct(string $nom, int $force, int $level = 1) {
     $this->nom = $nom;
     $this->force = $force;
     $this->level  = $level;
+    $this->setVie($health);
+    $this->setEtat();
+    $this->setType($type);
 }
 
 
@@ -81,12 +85,39 @@ function setMort(int $mort) {
 
 }
 
- function attaquer(personnage $perso) {
-        $perso->setVie($perso->getVie() - $this->force);
-        $perso->setMort();
+function levelUp() {
+    $this->setLevel($this->getLevel()+1);
+}
+
+public function setType($type) {
+    $this->type = $type;
+}
+
+ //function attaquer(personnage $perso) {
+        //$perso->setVie($perso->getVie() - $this->force);
+        //$perso->setMort();
 
 
 }
+
+ function tirer($perso) {
+     $perso->setVie($perso->getVie() - $this->force);
+     echo "L'archer vient de tirer sur le personnage et lui inflige des dégats"."<br>";
+     $perso->setEtat();
+ }
+
+ function frapper($perso) {
+     $perso->setVie($perso->getVie() - $this->force);
+     echo "Le Guerrier vient de frapper le personnage et lui inflige des dégats"."<br>";
+     $perso->setEtat();
+ }
+ 
+ function lancerSort($perso) {
+    $perso->setVie($perso->getVie() - $this->force);
+    echo "Le sorcier vient de lancer un sort sur le personnage et lui inflige des dégats"."<br>";
+    $perso->setEtat();
+ }    
+
 
 
 
