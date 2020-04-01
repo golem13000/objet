@@ -4,7 +4,7 @@ class Personnage {
     protected $nom;
     protected $force;
     protected $level;
-    protected $vie;
+    protected $Vie;
     protected $etat;
     protected $type;
 
@@ -79,8 +79,6 @@ class Personnage {
     public function attaquer(Personnage $perso) {
         $perso->setEtat();
     }
-
-
 }
 
 class Guerrier extends Personnage {
@@ -92,12 +90,17 @@ class Guerrier extends Personnage {
     }
 
     public function frapper() {
-        echo $this->nom. " "."de type". " ".Guerrier::class. " ". "vient de frapper ce personnage et lui inflige des dégats"."<br>";
+        echo $this->nom. " "."de type". " ".Guerrier::class. " ". "vient de frapper le personnage et lui inflige des dégats"."<br>";
     }
 
-    public function degats($perso) {
-        $perso->setVie($perso->getVie() - 50);
+    public function degats(Personnage $perso) {
+       
+    if ($perso instanceof Archer ) {
+       $perso->setVie($perso->getVie() - 30);
+    } else {
+        $perso->setVie($perso->getVie() - 10);
     }
+}
 
 }
 
@@ -110,13 +113,17 @@ class Sorcier extends Personnage {
     }
 
     public function lancerSort() {
-        echo $this->nom. " "."de type". " ". Sorcier::class. " "."vient de lancer un sort contre ce personnage et lui inflige des dégats"."<br>";
+        echo $this->nom. " "."de type". " ". Sorcier::class. " "."vient de lancer un sort contre le personnage et lui inflige des dégats"."<br>";
     }
 
-    public function degats($perso) {
-        $perso->setVie($perso->getVie() - 100);
+    public function degats(Personnage $perso) {
+       
+        if ($perso instanceof Archer ) {
+           $perso->setVie($perso->getVie() - 60);
+        } else {
+            $perso->setVie($perso->getVie() - 100);
+        }
     }
-
 }
 
 class Archer extends Personnage {
@@ -128,32 +135,34 @@ class Archer extends Personnage {
     }
 
     public function tirer() {
-        echo $this->nom. " "."de type". " ". Archer::class. " ". "vient de lancer plusieurs flèches contre ce personnage et lui inflige des dégats"."<br>";
+        echo $this->nom. " "."de type". " ". Archer::class. " ". "vient de lancer plusieurs flèches contre le personnage et lui inflige des dégats"."<br>";
     }
 
-    public function degats($perso) {
-        $perso->setVie($perso->getVie() - 40);
+    public function degats(Personnage $perso) {
+       
+        if ($perso instanceof Guerrier ) {
+           $perso->setVie($perso->getVie() - 40);
+        } else {
+            $perso->setVie($perso->getVie() - 60);
+        }
     }
 
 }
 
 
+
 $perso1 = new Archer("Rose", 12,2,100,"", "Archer");
-$perso2 = new Sorcier("Golum",15,1,50,"","Sorcier");
-$perso3 = new Guerrier("Rocky",6,1,0,"", "Guerrier");
+$perso2 = new Sorcier("Golum",15,1,100,"","Sorcier");
+$perso3 = new Guerrier("Rocky",6,1,100,"", "Guerrier");
 
-// $perso1->caracteristiques();
-// $perso2->caracteristiques();
-// $perso3->caracteristiques();
-
-// echo "Un niveau inférieur ";
-// $perso2->caracteristiques();
-// $perso2->levelUp($perso2);
-// echo "Un niveau superieur ";;
-// $perso2->caracteristiques();
 
 echo "Avant l'attaque : ";
-$perso1->caracteristiques();
-$perso2->attaquer($perso1);
+$perso2->caracteristiques();
+$perso3->attaquer($perso2);
 echo "Après l'attaque : ";
-$perso1->caracteristiques();
+$perso2->caracteristiques();
+echo "Avant l'attaque : ";
+$perso2->caracteristiques();
+$perso3->attaquer($perso2);
+echo "Après l'attaque : ";
+$perso2->caracteristiques();
